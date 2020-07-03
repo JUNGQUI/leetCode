@@ -1,17 +1,8 @@
-package com.jk.leetcode;
+package com.jk.leetcode.roman;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+public class RomanToInteger {
 
-import java.util.HashMap;
-import java.util.Map;
-
-@SpringBootTest
-class LeetcodeApplicationTests {
-
-    @Test
-    void contextLoads() {
-        String s = "MCMXCIV";
+    public int romanToInt(String s) {
         char[] roman = s.toCharArray();
         int result = 0;
         int index = roman.length-1;
@@ -86,6 +77,6 @@ class LeetcodeApplicationTests {
             }
         }
 
-        System.out.println("J Tag");
+        return result;
     }
 }
