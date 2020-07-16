@@ -1,20 +1,6 @@
-package com.jk.leetcode;
+package com.jk.leetcode.subrectangle;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-
-@SpringBootTest
-class LeetcodeApplicationTests {
-
-    @Test
-    void contextLoads() {
-
-        System.out.println("J Tag");
-    }
-}
-
-class SubrectangleQueries {
+public class SubrectangleQueries {
     int[][] localRec;
 
     public SubrectangleQueries(int[][] rectangle) {
