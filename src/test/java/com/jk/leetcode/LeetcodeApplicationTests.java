@@ -9,27 +9,17 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
+        int[] nums = new int[] {2, 5, 1, 3, 4, 7};
+        int n = 3;
+
+        int[] result = new int[nums.length];
+
+        for (int i = 0; i < n; i++) {
+            int idx = i*2;
+            result[idx] = nums[i];
+            result[idx + 1] = nums[i+n];
+        }
 
         System.out.println("J Tag");
-    }
-}
-
-class SubrectangleQueries {
-    int[][] localRec;
-
-    public SubrectangleQueries(int[][] rectangle) {
-        this.localRec = rectangle;
-    }
-
-    public void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {
-        for (int i = row1; i <= row2; i++) {
-            for (int j = col1; j <= col2; j++) {
-                localRec[i][j] = newValue;
-            }
-        }
-    }
-
-    public int getValue(int row, int col) {
-        return localRec[row][col];
     }
 }
