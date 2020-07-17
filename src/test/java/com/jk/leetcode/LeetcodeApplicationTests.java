@@ -36,7 +36,6 @@ class LeetcodeApplicationTests {
         
 
         for (int i = 0; i < nums.length/2; i++) {
-
         }
 
         System.out.println("J Tag");
