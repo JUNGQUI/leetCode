@@ -33,11 +33,6 @@ class LeetcodeApplicationTests {
 //                res[i] = count[nums[i] - 1];
 //        }
 
-        
-
-        for (int i = 0; i < nums.length/2; i++) {
-        }
-
         System.out.println("J Tag");
     }
 }
