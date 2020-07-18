@@ -13,25 +13,15 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] nums = new int[] {1, 1, 2, 3};
+        int n = 4421;
 
-//        int[] count = new int[101];
-//        int[] res = new int[nums.length];
-//
-//        for (int i =0; i < nums.length; i++) {
-//            count[nums[i]]++;
-//        }
-//
-//        for (int i = 1 ; i <= 100; i++) {
-//            count[i] += count[i-1];
-//        }
-//
-//        for (int i = 0; i < nums.length; i++) {
-//            if (nums[i] == 0)
-//                res[i] = 0;
-//            else
-//                res[i] = count[nums[i] - 1];
-//        }
+        int pd = 1, sd = 0, tempN = n;
+
+        while (tempN != 0) {
+            sd += tempN%10;
+            pd *= tempN%10;
+            tempN = tempN / 10;
+        }
 
         System.out.println("J Tag");
     }
