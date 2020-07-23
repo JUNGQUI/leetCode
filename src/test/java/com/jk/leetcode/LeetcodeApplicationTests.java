@@ -11,53 +11,76 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        TreeNode treeNode = new TreeNode(
+
+        TreeNode root = new TreeNode(
                 6,
                 new TreeNode(
                         7,
-                        new TreeNode(
-                                2,
-                                new TreeNode(9),
-                                null),
-                        new TreeNode(
-                                7,
-                                new TreeNode(1),
-                                new TreeNode(4))),
+                        new TreeNode(2, new TreeNode(9), null),
+                        new TreeNode(7, new TreeNode(1), new TreeNode(4)
+                        )
+                ),
                 new TreeNode(
                         8,
                         new TreeNode(1),
+                        new TreeNode(3, null, new TreeNode(5))
+                ));
+
+
+        TreeNode treeNode = new TreeNode(
+                1,
+                new TreeNode(
+                        2,
                         new TreeNode(
-                                3, null, new TreeNode(5)
+                                4,
+                                new TreeNode(7),
+                                null),
+                        new TreeNode(5)
+                ),
+                new TreeNode(
+                        3,
+                        null,
+                        new TreeNode(
+                                6, null, new TreeNode(8)
                         )
                 )
         );
 
-        int count = sumEvenGrandparent(treeNode);
+        int count = deepestLeavesSum(root);
 
         System.out.println("J Tag");
     }
 
-    private int sumEvenGrandparent(TreeNode root) {
-        int count = 0;
+    private int calculator(int checkSum, TreeNode treeNode) {
+        checkSum += 200;
+        int left = 0, right = 0, leftDepth, rightDepth;
 
-        if (root == null) return count;
+        if (treeNode.left == null && treeNode.right == null) return treeNode.val + checkSum;
 
-        if (root.val % 2 == 0) {
-            if (root.left != null) {
-                count += root.left.left != null ? root.left.left.val : 0;
-                count += root.left.right != null ? root.left.right.val : 0;
-            }
-
-            if (root.right != null) {
-                count += root.right.left != null ? root.right.left.val : 0;
-                count += root.right.right != null ? root.right.right.val : 0;
-            }
+        if (treeNode.left != null) {
+            left = calculator(checkSum, treeNode.left);
         }
 
-        count += sumEvenGrandparent(root.left);
-        count += sumEvenGrandparent(root.right);
+        if (treeNode.right != null) {
+            right = calculator(checkSum, treeNode.right);
+        }
 
-        return count;
+        leftDepth = left/200;
+        rightDepth = right/200;
+
+        if (leftDepth == rightDepth) {
+            return left + right%200;
+        } else if (leftDepth > rightDepth) {
+            return left;
+        } else {
+            return right;
+        }
+    }
+
+    private int deepestLeavesSum(TreeNode root) {
+        int sum = calculator(0, root) % 200;
+
+        return sum;
     }
 
     public class TreeNode {

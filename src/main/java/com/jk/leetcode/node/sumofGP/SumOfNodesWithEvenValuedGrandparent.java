@@ -1,19 +1,8 @@
 package com.jk.leetcode.node.sumofGP;
 
-public class SumOfNodesWithEvenValuedGrandparent {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
+import com.jk.leetcode.node.TreeNode;
 
+public class SumOfNodesWithEvenValuedGrandparent {
     class Solution {
         public int sumEvenGrandparent(TreeNode root) {
             int count = 0;
