@@ -1,7 +1,6 @@
 package com.jk.leetcode.skyline;
 
 public class MaxIncreaseToKeepCitySkyline {
-
     class Solution {
         public int maxIncreaseKeepingSkyline(int[][] grid) {
 
