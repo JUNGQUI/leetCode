@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @SpringBootTest
@@ -12,48 +14,30 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
+        int[][] buildings = new int[][]{
+                {3, 0, 8, 4},
+                {2, 4, 5, 7},
+                {9, 2, 6, 3},
+                {0, 3, 1, 0}
+        };
 
-        TreeNode original = new TreeNode(7);
-        original.left = new TreeNode(4);
-        original.right = new TreeNode(3);
-        original.right.left = new TreeNode(6);
-        original.right.right = new TreeNode(19);
+        int[] tb = new int[buildings.length];
+        int[] lr = new int[buildings.length];
+        int count = 0;
 
-        TreeNode cloned = new TreeNode(7);
-        cloned.left = new TreeNode(4);
-        cloned.right = new TreeNode(3);
-        cloned.right.left = new TreeNode(6);
-        cloned.right.right = new TreeNode(19);
+        for (int i = 0; i < buildings.length; i++) {
+            for (int j = 0; j < buildings.length; j++) {
+                tb[j] = Math.max(tb[j], buildings[i][j]);
+                lr[i] = Math.max(lr[i], buildings[i][j]);
+            }
+        }
 
-        TreeNode target = new TreeNode(3);
-
-        TreeNode result = getTargetCopy(original, cloned, target);
+        for (int i = 0; i < buildings.length; i++) {
+            for (int j = 0; j < buildings.length; j++) {
+                count += Math.abs(Math.min(tb[j], lr[i]) - buildings[i][j]);
+            }
+        }
 
         System.out.println("J Tag");
     }
-
-    private TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
-        if (original == null || original.val == target.val) {
-            return cloned;
-        }
-
-        TreeNode result = null;
-
-        if (original.left != null) {
-            result = getTargetCopy(original.left, cloned.left, target);
-        }
-
-        if (result != null) {
-            return result;
-        }
-
-        return getTargetCopy(original.right, cloned.right, target);
-    }
-}
-
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
 }
