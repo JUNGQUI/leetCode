@@ -11,32 +11,9 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] queries = new int[] {3, 1, 2, 1};
-        int m = 5;
-
-        List<Integer> permutation = new ArrayList<>();
-
-        for (int i = m; i > 0; i--) {
-            permutation.add(i);
-        }
-
-        int[] results = new int[queries.length];
-
-        for (int j = 0; j < queries.length; j++) {
-            results[j] = m-permutation.indexOf(queries[j])-1;
-            permutation.remove((Integer) queries[j]);
-            permutation.add(queries[j]);
-        }
-
+        int[] rating = new int[]{2, 5, 3, 4, 1};
         System.out.println("J Tag");
     }
-
-    // 12345
-    // 31245
-    // 13245
-    // 21345
-    // 12345
-
 
     public class TreeNode {
         int val;
