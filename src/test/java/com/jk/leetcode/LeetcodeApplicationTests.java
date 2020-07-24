@@ -11,77 +11,32 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
+        int[] queries = new int[] {3, 1, 2, 1};
+        int m = 5;
 
-        TreeNode root = new TreeNode(
-                6,
-                new TreeNode(
-                        7,
-                        new TreeNode(2, new TreeNode(9), null),
-                        new TreeNode(7, new TreeNode(1), new TreeNode(4)
-                        )
-                ),
-                new TreeNode(
-                        8,
-                        new TreeNode(1),
-                        new TreeNode(3, null, new TreeNode(5))
-                ));
+        List<Integer> permutation = new ArrayList<>();
 
+        for (int i = m; i > 0; i--) {
+            permutation.add(i);
+        }
 
-        TreeNode treeNode = new TreeNode(
-                1,
-                new TreeNode(
-                        2,
-                        new TreeNode(
-                                4,
-                                new TreeNode(7),
-                                null),
-                        new TreeNode(5)
-                ),
-                new TreeNode(
-                        3,
-                        null,
-                        new TreeNode(
-                                6, null, new TreeNode(8)
-                        )
-                )
-        );
+        int[] results = new int[queries.length];
 
-        int count = deepestLeavesSum(root);
+        for (int j = 0; j < queries.length; j++) {
+            results[j] = m-permutation.indexOf(queries[j])-1;
+            permutation.remove((Integer) queries[j]);
+            permutation.add(queries[j]);
+        }
 
         System.out.println("J Tag");
     }
 
-    private int calculator(int checkSum, TreeNode treeNode) {
-        checkSum += 200;
-        int left = 0, right = 0, leftDepth, rightDepth;
+    // 12345
+    // 31245
+    // 13245
+    // 21345
+    // 12345
 
-        if (treeNode.left == null && treeNode.right == null) return treeNode.val + checkSum;
-
-        if (treeNode.left != null) {
-            left = calculator(checkSum, treeNode.left);
-        }
-
-        if (treeNode.right != null) {
-            right = calculator(checkSum, treeNode.right);
-        }
-
-        leftDepth = left/200;
-        rightDepth = right/200;
-
-        if (leftDepth == rightDepth) {
-            return left + right%200;
-        } else if (leftDepth > rightDepth) {
-            return left;
-        } else {
-            return right;
-        }
-    }
-
-    private int deepestLeavesSum(TreeNode root) {
-        int sum = calculator(0, root) % 200;
-
-        return sum;
-    }
 
     public class TreeNode {
         int val;
