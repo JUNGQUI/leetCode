@@ -18,9 +18,14 @@ class LeetcodeApplicationTests {
 
         char[] tempS = s.toCharArray();
         char[] tempResults = new char[s.length()];
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < s.length(); i++) {
             tempResults[indices[i]] = tempS[i];
+        }
+
+        for (char temp : tempResults) {
+            result.append(temp);
         }
 
         System.out.println("J Tag");
