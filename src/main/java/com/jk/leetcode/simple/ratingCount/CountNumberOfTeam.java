@@ -1,6 +1,7 @@
 package com.jk.leetcode.simple.ratingCount;
 
 public class CountNumberOfTeam {
+
     class Solution {
         public int numTeams(int[] rating) {
             int result = 0;
