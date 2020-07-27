@@ -11,31 +11,22 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] rating = new int[]{2, 5, 3, 4, 1};
+        ListNode head = new ListNode(1, new ListNode(0, new ListNode(1)));
 
+        int length = -1;
+
+        List<Integer> results = new ArrayList<>();
         int result = 0;
 
-        for (int i = 1; i < rating.length-1; i++) {
-            int[] left = new int[]{0, 0};
-            int[] right = new int[]{0, 0};
+        while(head != null) {
+            length++;
+            results.add(head.val);
+            head = head.next;
+        }
 
-            for (int j = 0; j < i; j++) {
-                if (rating[j] < rating[i]) {
-                    left[0]++;
-                } else if (rating[j] > rating[i]) {
-                    left[1]++;
-                }
-            }
-
-            for (int k = i+1; k < rating.length; k++) {
-                if (rating[k] > rating[i]) {
-                    right[0]++;
-                } else if (rating[k] < rating[i]) {
-                    right[1]++;
-                }
-            }
-
-            result += (left[0]*right[0]) + (left[1]*right[1]);
+        for (Integer temp : results) {
+            result += temp*Math.pow(2, length);
+            length--;
         }
 
         System.out.println("J Tag");
@@ -52,5 +43,13 @@ class LeetcodeApplicationTests {
             this.left = left;
             this.right = right;
         }
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 }

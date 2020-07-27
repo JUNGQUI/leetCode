@@ -1,17 +1,8 @@
 package com.jk.leetcode.node.merge;
 
-public class TwoSortedLists {
-    /**
-     * Definition for singly-linked list.
-     */
-    public class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
+import com.jk.leetcode.node.ListNode;
 
+public class TwoSortedLists {
     class Solution {
         public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
             ListNode head = new ListNode(0);
