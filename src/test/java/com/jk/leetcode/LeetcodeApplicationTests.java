@@ -12,6 +12,17 @@ class LeetcodeApplicationTests {
     @Test
     void contextLoads() {
         int[] rating = new int[]{2, 5, 3, 4, 1};
+
+        int[] indices = new int[] {4,5,6,7,0,2,1,3};
+        String s = "codeleet";
+
+        char[] tempS = s.toCharArray();
+        char[] tempResults = new char[s.length()];
+
+        for (int i = 0; i < s.length(); i++) {
+            tempResults[indices[i]] = tempS[i];
+        }
+
         System.out.println("J Tag");
     }
 
