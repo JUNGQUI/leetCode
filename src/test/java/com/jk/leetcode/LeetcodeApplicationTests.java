@@ -13,19 +13,29 @@ class LeetcodeApplicationTests {
     void contextLoads() {
         int[] rating = new int[]{2, 5, 3, 4, 1};
 
-        int[] indices = new int[] {4,5,6,7,0,2,1,3};
-        String s = "codeleet";
+        int result = 0;
 
-        char[] tempS = s.toCharArray();
-        char[] tempResults = new char[s.length()];
-        StringBuilder result = new StringBuilder();
+        for (int i = 1; i < rating.length-1; i++) {
+            int[] left = new int[]{0, 0};
+            int[] right = new int[]{0, 0};
 
-        for (int i = 0; i < s.length(); i++) {
-            tempResults[indices[i]] = tempS[i];
-        }
+            for (int j = 0; j < i; j++) {
+                if (rating[j] < rating[i]) {
+                    left[0]++;
+                } else if (rating[j] > rating[i]) {
+                    left[1]++;
+                }
+            }
 
-        for (char temp : tempResults) {
-            result.append(temp);
+            for (int k = i+1; k < rating.length; k++) {
+                if (rating[k] > rating[i]) {
+                    right[0]++;
+                } else if (rating[k] < rating[i]) {
+                    right[1]++;
+                }
+            }
+
+            result += (left[0]*right[0]) + (left[1]*right[1]);
         }
 
         System.out.println("J Tag");
