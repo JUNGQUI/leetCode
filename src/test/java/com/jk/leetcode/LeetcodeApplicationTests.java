@@ -9,27 +9,60 @@ import java.util.*;
 @SpringBootTest
 class LeetcodeApplicationTests {
 
+    int sum = 0;
+
     @Test
     void contextLoads() {
-        ListNode head = new ListNode(1, new ListNode(0, new ListNode(1)));
+//        TreeNode root = new TreeNode(
+//                4,
+//                new TreeNode(
+//                        1,
+//                        new TreeNode(0),
+//                        new TreeNode(
+//                                2,
+//                                null,
+//                                new TreeNode(3))
+//                ),
+//                new TreeNode(
+//                        6,
+//                        new TreeNode(5),
+//                        new TreeNode(
+//                                7,
+//                                null,
+//                                new TreeNode(8))
+//                )
+//        );
 
-        int length = -1;
+        TreeNode root = new TreeNode(
+                3,
+                new TreeNode(2, new TreeNode(1),null),
+                new TreeNode(4)
+        );
 
-        List<Integer> results = new ArrayList<>();
-        int result = 0;
-
-        while(head != null) {
-            length++;
-            results.add(head.val);
-            head = head.next;
-        }
-
-        for (Integer temp : results) {
-            result += temp*Math.pow(2, length);
-            length--;
-        }
+        root = bstToGst(root);
 
         System.out.println("J Tag");
+    }
+
+    public TreeNode bstToGst(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+
+        return calculator(root);
+    }
+
+    private TreeNode calculator(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+
+        calculator(root.right);
+        sum += root.val;
+        root.val = sum;
+        calculator(root.left);
+
+        return root;
     }
 
     public class TreeNode {
