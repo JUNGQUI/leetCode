@@ -13,54 +13,34 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-//        TreeNode root = new TreeNode(
-//                4,
-//                new TreeNode(
-//                        1,
-//                        new TreeNode(0),
-//                        new TreeNode(
-//                                2,
-//                                null,
-//                                new TreeNode(3))
-//                ),
-//                new TreeNode(
-//                        6,
-//                        new TreeNode(5),
-//                        new TreeNode(
-//                                7,
-//                                null,
-//                                new TreeNode(8))
-//                )
-//        );
+        int[] nums = new int[] {3, 2, 1, 6, 0, 5};
 
-        TreeNode root = new TreeNode(
-                3,
-                new TreeNode(2, new TreeNode(1),null),
-                new TreeNode(4)
-        );
-
-        root = bstToGst(root);
+        TreeNode root = constructMaximumBinaryTree(nums);
 
         System.out.println("J Tag");
     }
 
-    public TreeNode bstToGst(TreeNode root) {
-        if (root == null) {
-            return root;
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        if (nums.length == 0) {
+            return null;
         }
 
-        return calculator(root);
-    }
+        int highestVal = 0, highestIndex = 0;
 
-    private TreeNode calculator(TreeNode root) {
-        if (root == null) {
-            return root;
+        for (int i = 0; i < nums.length; i++) {
+            if (highestVal < nums[i]) {
+                highestVal = nums[i];
+                highestIndex = i;
+            }
         }
 
-        calculator(root.right);
-        sum += root.val;
-        root.val = sum;
-        calculator(root.left);
+        int[] leftSub = Arrays.copyOfRange(nums, 0, highestIndex);
+        int[] rightSub = Arrays.copyOfRange(nums, highestIndex+1, nums.length);
+
+        TreeNode root = new TreeNode(highestVal);
+
+        root.left = constructMaximumBinaryTree(leftSub);
+        root.right = constructMaximumBinaryTree(rightSub);
 
         return root;
     }
