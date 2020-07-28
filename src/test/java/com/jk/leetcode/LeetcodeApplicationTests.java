@@ -9,40 +9,22 @@ import java.util.*;
 @SpringBootTest
 class LeetcodeApplicationTests {
 
-    int sum = 0;
-
     @Test
     void contextLoads() {
-        int[] nums = new int[] {3, 2, 1, 6, 0, 5};
+        int[][] points = new int[][] {
+                {1, 1},
+                {3, 4},
+                {-1, 0}
+        };
+        int[] prev = points[0];
+        int result = 0;
 
-        TreeNode root = constructMaximumBinaryTree(nums);
+        for (int i = 1; i < points.length; i++) {
+            result += Math.max(Math.abs(prev[0] - points[i][0]), Math.abs(prev[1] - points[i][1]));
+            prev = points[i];
+        }
 
         System.out.println("J Tag");
-    }
-
-    public TreeNode constructMaximumBinaryTree(int[] nums) {
-        if (nums.length == 0) {
-            return null;
-        }
-
-        int highestVal = 0, highestIndex = 0;
-
-        for (int i = 0; i < nums.length; i++) {
-            if (highestVal < nums[i]) {
-                highestVal = nums[i];
-                highestIndex = i;
-            }
-        }
-
-        int[] leftSub = Arrays.copyOfRange(nums, 0, highestIndex);
-        int[] rightSub = Arrays.copyOfRange(nums, highestIndex+1, nums.length);
-
-        TreeNode root = new TreeNode(highestVal);
-
-        root.left = constructMaximumBinaryTree(leftSub);
-        root.right = constructMaximumBinaryTree(rightSub);
-
-        return root;
     }
 
     public class TreeNode {
