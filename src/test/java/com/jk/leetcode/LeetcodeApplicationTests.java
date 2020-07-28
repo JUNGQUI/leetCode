@@ -3,28 +3,47 @@ package com.jk.leetcode;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
-
 
 @SpringBootTest
 class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[][] points = new int[][] {
-                {1, 1},
-                {3, 4},
-                {-1, 0}
-        };
-        int[] prev = points[0];
-        int result = 0;
+        int[] preorder = new int[] {8, 5, 1, 7, 10, 12};
 
-        for (int i = 1; i < points.length; i++) {
-            result += Math.max(Math.abs(prev[0] - points[i][0]), Math.abs(prev[1] - points[i][1]));
-            prev = points[i];
-        }
+        TreeNode root = bstFromPreorder(preorder);
 
         System.out.println("J Tag");
+    }
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if (preorder == null || preorder.length == 0) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(preorder[0]);
+
+        for (int i = 1; i < preorder.length; i++) {
+            calculator(root, preorder[i]);
+        }
+
+        return root;
+    }
+
+    private void calculator (TreeNode root, int val) {
+        if (root.val > val) {
+            if (root.left != null) {
+                calculator(root.left, val);
+            } else {
+                root.left = new TreeNode(val);
+            }
+        } else {
+            if (root.right != null) {
+                calculator(root.right, val);
+            } else {
+                root.right = new TreeNode(val);
+            }
+        }
     }
 
     public class TreeNode {
