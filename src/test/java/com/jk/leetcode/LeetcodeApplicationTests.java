@@ -3,47 +3,64 @@ package com.jk.leetcode;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @SpringBootTest
 class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] preorder = new int[] {8, 5, 1, 7, 10, 12};
+        int[][] mat = new int[][] {
+                {3, 3, 1, 1},
+                {2, 2, 1, 2},
+                {1, 1, 1, 2}
+        };
+        int[][] results = new int[][] {
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
 
-        TreeNode root = bstFromPreorder(preorder);
+        int max = Math.min(mat.length, mat[0].length);
+
+        for (int i = mat.length-1; i > 0; i--) {
+            List<Integer> diagons = new ArrayList<>();
+            int min = Math.min(mat.length - i, max);
+
+            for (int j = 0; j < min; j++) {
+                diagons.add(mat[i+j][j]);
+            }
+
+            int idx = 0;
+            diagons.sort(null);
+
+            for (int j = 0; j < min; j++) {
+                results[i+j][j] = diagons.get(idx);
+                idx++;
+            }
+        }
+
+        for (int a = 0; a < mat[0].length; a++) {
+            List<Integer> diagons = new ArrayList<>();
+            int min = Math.min(mat[0].length - a, max);
+
+            for (int b = 0; b < min; b++) {
+                diagons.add(mat[b][a+b]);
+            }
+
+            int idx = 0;
+            diagons.sort(null);
+
+            for (int b = 0; b < min; b++) {
+                results[b][a+b] = diagons.get(idx);
+                idx++;
+            }
+        }
 
         System.out.println("J Tag");
-    }
-
-    public TreeNode bstFromPreorder(int[] preorder) {
-        if (preorder == null || preorder.length == 0) {
-            return null;
-        }
-
-        TreeNode root = new TreeNode(preorder[0]);
-
-        for (int i = 1; i < preorder.length; i++) {
-            calculator(root, preorder[i]);
-        }
-
-        return root;
-    }
-
-    private void calculator (TreeNode root, int val) {
-        if (root.val > val) {
-            if (root.left != null) {
-                calculator(root.left, val);
-            } else {
-                root.left = new TreeNode(val);
-            }
-        } else {
-            if (root.right != null) {
-                calculator(root.right, val);
-            } else {
-                root.right = new TreeNode(val);
-            }
-        }
     }
 
     public class TreeNode {
