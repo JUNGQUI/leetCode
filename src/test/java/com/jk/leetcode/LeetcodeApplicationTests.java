@@ -13,50 +13,25 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[][] mat = new int[][] {
-                {3, 3, 1, 1},
-                {2, 2, 1, 2},
-                {1, 1, 1, 2}
-        };
-        int[][] results = new int[][] {
-                {0, 0, 0, 0},
-                {0, 0, 0, 0},
-                {0, 0, 0, 0}
+        int n = 2, m = 3;
+        int[][] indices = new int[][] {
+                {0, 1},
+                {1, 1}
         };
 
-        int max = Math.min(mat.length, mat[0].length);
+        boolean[] rowOdd = new boolean[n];
+        boolean[] colOdd = new boolean[m];
 
-        for (int i = mat.length-1; i > 0; i--) {
-            List<Integer> diagons = new ArrayList<>();
-            int min = Math.min(mat.length - i, max);
-
-            for (int j = 0; j < min; j++) {
-                diagons.add(mat[i+j][j]);
-            }
-
-            int idx = 0;
-            diagons.sort(null);
-
-            for (int j = 0; j < min; j++) {
-                results[i+j][j] = diagons.get(idx);
-                idx++;
-            }
+        for (int[] row : indices) {
+            rowOdd[row[0]] = !rowOdd[row[0]];
+            colOdd[row[1]] = !colOdd[row[1]];
         }
 
-        for (int a = 0; a < mat[0].length; a++) {
-            List<Integer> diagons = new ArrayList<>();
-            int min = Math.min(mat[0].length - a, max);
+        int result = 0;
 
-            for (int b = 0; b < min; b++) {
-                diagons.add(mat[b][a+b]);
-            }
-
-            int idx = 0;
-            diagons.sort(null);
-
-            for (int b = 0; b < min; b++) {
-                results[b][a+b] = diagons.get(idx);
-                idx++;
+        for (boolean ro : rowOdd) {
+            for (boolean co : colOdd) {
+                result += (ro && !co) || (!ro && co) ? 1 : 0;
             }
         }
 
