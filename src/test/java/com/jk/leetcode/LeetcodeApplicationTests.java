@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -13,29 +14,53 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int n = 2, m = 3;
-        int[][] indices = new int[][] {
-                {0, 1},
-                {1, 1}
+        int[][] graph = new int[][] {
+                {4,3,1},
+                {3,2,4},
+                {3},
+                {4},
+                {}
         };
 
-        boolean[] rowOdd = new boolean[n];
-        boolean[] colOdd = new boolean[m];
+        List<List<Integer>> results = new ArrayList<>();
 
-        for (int[] row : indices) {
-            rowOdd[row[0]] = !rowOdd[row[0]];
-            colOdd[row[1]] = !colOdd[row[1]];
+        for (int g : graph[0]) {
+            List<Integer> partialPath = new ArrayList<>();
+            partialPath.add(0);
+            partialPath.add(g);
+
+            results.add(partialPath);
         }
 
-        int result = 0;
-
-        for (boolean ro : rowOdd) {
-            for (boolean co : colOdd) {
-                result += (ro && !co) || (!ro && co) ? 1 : 0;
-            }
-        }
+        results = recursivePathStep1(results, graph);
 
         System.out.println("J Tag");
+    }
+
+    private List<List<Integer>> recursivePathStep1 (List<List<Integer>> prevPath, int[][] totalGraph) {
+        List<List<Integer>> finalResult = new ArrayList<>();
+        for (List<Integer> tempPath : prevPath) {
+            tempPath = recursivePathStep2(tempPath, totalGraph);
+            finalResult.add(tempPath);
+        }
+
+        return finalResult;
+    }
+
+    private List<Integer> recursivePathStep2 (List<Integer> prevPath, int[][] totalGraph) {
+        int idx = prevPath.get(prevPath.size()-1);
+
+        if (idx == totalGraph.length-1) {
+            return prevPath;
+        }
+
+        for (int tempG : totalGraph[idx]) {
+            List<Integer> tempPath = new ArrayList<>(prevPath);
+            tempPath.add(tempG);
+            prevPath = recursivePathStep2(tempPath, totalGraph);
+        }
+
+        return prevPath;
     }
 
     public class TreeNode {
