@@ -14,70 +14,64 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] arr = {3,0,1,1,9,7};
-        int a = 7, b = 2, c = 3;
-
-        int result = 0;
-
-        for (int i = 1; i < arr.length; i++) {
-            for (int j = 0; j < i; j++) {
-                for (int k = i+1; k < arr.length; k++) {
-                    if (Math.abs(arr[j] - arr[i]) <= a &&
-                            Math.abs(arr[i] - arr[k]) <= b &&
-                            Math.abs(arr[j] - arr[k]) <= c) {
-                        result++;
-                    }
-                }
-            }
-        }
-
-//        int[][] graph = new int[][] {
+        int[][] graph = new int[][] {
 //                {4,3,1},
 //                {3,2,4},
 //                {3},
 //                {4},
 //                {}
-//        };
-//
-//        List<List<Integer>> results = new ArrayList<>();
-//
-//        for (int g : graph[0]) {
-//            List<Integer> partialPath = new ArrayList<>();
-//            partialPath.add(0);
-//            partialPath.add(g);
-//
-//            results.add(partialPath);
-//        }
-//
-//        results = recursivePathStep1(results, graph);
+                {2},
+                {},
+                {1}
+        };
+
+        List<List<Integer>> results = new ArrayList<>();
+
+        for (int i : graph[0]) {
+            List<Integer> result = new ArrayList<>();
+            result.add(0);
+            result.add(i);
+            results.add(result);
+        }
+
+        results = calculatorResult(results, graph);
 
         System.out.println("J Tag");
     }
 
-    private List<List<Integer>> recursivePathStep1 (List<List<Integer>> prevPath, int[][] totalGraph) {
-        List<List<Integer>> finalResult = new ArrayList<>();
-        for (List<Integer> tempPath : prevPath) {
-            tempPath = recursivePathStep2(tempPath, totalGraph);
-            finalResult.add(tempPath);
+    private List<List<Integer>> calculatorResult(List<List<Integer>> temp, int[][] graph) {
+        List<List<Integer>> beforeResults = new ArrayList<>();
+        List<List<Integer>> results = new ArrayList<>();
+
+        for (List<Integer> tempPath : temp) {
+            beforeResults.addAll(calculatorPath(tempPath, graph));
         }
 
-        return finalResult;
+        for (List<Integer> beforePaths : beforeResults) {
+            if (beforePaths.get(beforePaths.size()-1) == graph.length-1) {
+                results.add(beforePaths);
+            }
+        }
+
+        return results;
     }
 
-    private List<Integer> recursivePathStep2 (List<Integer> prevPath, int[][] totalGraph) {
-        int idx = prevPath.get(prevPath.size()-1);
+    private List<List<Integer>> calculatorPath(List<Integer> partitionsPath, int[][] graph) {
+        int lastIndex = partitionsPath.get(partitionsPath.size()-1);
+        List<List<Integer>> semiResults = new ArrayList<>();
 
-        if (idx == totalGraph.length-1) {
-            return prevPath;
+        if (graph[lastIndex].length == 0 || lastIndex == graph.length-1) {
+            semiResults.add(partitionsPath);
+            return semiResults;
         }
 
-        for (int tempG : totalGraph[idx]) {
-            List<Integer> tempPath = new ArrayList<>(prevPath);
-            tempPath.add(tempG);
-            prevPath = recursivePathStep2(tempPath, totalGraph);
+        for (int g : graph[lastIndex]) {
+            List<Integer> temp = new ArrayList<>(partitionsPath);
+            temp.add(g);
+            semiResults.addAll(calculatorPath(temp, graph));
         }
 
-        return prevPath;
+        return semiResults;
     }
 
     public class TreeNode {
