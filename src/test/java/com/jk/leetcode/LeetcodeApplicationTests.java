@@ -14,25 +14,42 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[][] graph = new int[][] {
-                {4,3,1},
-                {3,2,4},
-                {3},
-                {4},
-                {}
-        };
+        int[] arr = {3,0,1,1,9,7};
+        int a = 7, b = 2, c = 3;
 
-        List<List<Integer>> results = new ArrayList<>();
+        int result = 0;
 
-        for (int g : graph[0]) {
-            List<Integer> partialPath = new ArrayList<>();
-            partialPath.add(0);
-            partialPath.add(g);
-
-            results.add(partialPath);
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 0; j < i; j++) {
+                for (int k = i+1; k < arr.length; k++) {
+                    if (Math.abs(arr[j] - arr[i]) <= a &&
+                            Math.abs(arr[i] - arr[k]) <= b &&
+                            Math.abs(arr[j] - arr[k]) <= c) {
+                        result++;
+                    }
+                }
+            }
         }
 
-        results = recursivePathStep1(results, graph);
+//        int[][] graph = new int[][] {
+//                {4,3,1},
+//                {3,2,4},
+//                {3},
+//                {4},
+//                {}
+//        };
+//
+//        List<List<Integer>> results = new ArrayList<>();
+//
+//        for (int g : graph[0]) {
+//            List<Integer> partialPath = new ArrayList<>();
+//            partialPath.add(0);
+//            partialPath.add(g);
+//
+//            results.add(partialPath);
+//        }
+//
+//        results = recursivePathStep1(results, graph);
 
         System.out.println("J Tag");
     }
