@@ -14,19 +14,21 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String S = "(()())(())(()(()))";
-
-        int startIdx = 0, idx = 0;
+        int num = 9669;
+        String sNum = String.valueOf(num);
         StringBuilder result = new StringBuilder();
+        boolean flag = true;
 
-        for (int i = 0; i < S.length(); i++) {
-            idx += S.charAt(i) == '(' ? 1 : -1;
-
-            if (idx == 0) {
-                result.append(S, startIdx + 1, i);
-                startIdx = i+1;
+        for (int i = 0; i < sNum.length(); i++) {
+            if (sNum.startsWith("6", i) && flag) {
+                result.append("9");
+                flag = false;
+            } else {
+                result.append(sNum, i, i+1);
             }
         }
+
+        Integer.parseInt(result.toString());
 
         System.out.println("J Tag");
     }
