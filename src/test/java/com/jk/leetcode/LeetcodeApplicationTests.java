@@ -14,64 +14,21 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[][] graph = new int[][] {
-//                {4,3,1},
-//                {3,2,4},
-//                {3},
-//                {4},
-//                {}
-                {2},
-                {},
-                {1}
-        };
+        String S = "(()())(())(()(()))";
 
-        List<List<Integer>> results = new ArrayList<>();
+        int startIdx = 0, idx = 0;
+        StringBuilder result = new StringBuilder();
 
-        for (int i : graph[0]) {
-            List<Integer> result = new ArrayList<>();
-            result.add(0);
-            result.add(i);
-            results.add(result);
-        }
+        for (int i = 0; i < S.length(); i++) {
+            idx += S.charAt(i) == '(' ? 1 : -1;
 
-        results = calculatorResult(results, graph);
-
-        System.out.println("J Tag");
-    }
-
-    private List<List<Integer>> calculatorResult(List<List<Integer>> temp, int[][] graph) {
-        List<List<Integer>> beforeResults = new ArrayList<>();
-        List<List<Integer>> results = new ArrayList<>();
-
-        for (List<Integer> tempPath : temp) {
-            beforeResults.addAll(calculatorPath(tempPath, graph));
-        }
-
-        for (List<Integer> beforePaths : beforeResults) {
-            if (beforePaths.get(beforePaths.size()-1) == graph.length-1) {
-                results.add(beforePaths);
+            if (idx == 0) {
+                result.append(S, startIdx + 1, i);
+                startIdx = i+1;
             }
         }
 
-        return results;
-    }
-
-    private List<List<Integer>> calculatorPath(List<Integer> partitionsPath, int[][] graph) {
-        int lastIndex = partitionsPath.get(partitionsPath.size()-1);
-        List<List<Integer>> semiResults = new ArrayList<>();
-
-        if (graph[lastIndex].length == 0 || lastIndex == graph.length-1) {
-            semiResults.add(partitionsPath);
-            return semiResults;
-        }
-
-        for (int g : graph[lastIndex]) {
-            List<Integer> temp = new ArrayList<>(partitionsPath);
-            temp.add(g);
-            semiResults.addAll(calculatorPath(temp, graph));
-        }
-
-        return semiResults;
+        System.out.println("J Tag");
     }
 
     public class TreeNode {
