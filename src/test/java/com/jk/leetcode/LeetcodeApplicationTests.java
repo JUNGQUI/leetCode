@@ -3,10 +3,7 @@ package com.jk.leetcode;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 @SpringBootTest
@@ -14,35 +11,22 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        List<List<String>> paths = new ArrayList<>();
-        List<String> tempPath = new ArrayList<>();
-        tempPath.add("B");
-        tempPath.add("C");
-        paths.add(tempPath);
+        String[] morseCode = new String[] {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
 
-        tempPath = new ArrayList<>();
-        tempPath.add("D");
-        tempPath.add("B");
-        paths.add(tempPath);
+        String[] words = new String[] {"gin", "zen", "gig", "msg"};
+        Set<String> resultSet = new HashSet<>();
 
-        tempPath = new ArrayList<>();
-        tempPath.add("C");
-        tempPath.add("A");
-        paths.add(tempPath);
+        for (String word : words) {
+            StringBuilder morse = new StringBuilder();
 
-        HashMap<String, String> result = new HashMap<>();
-
-        for (List<String> path : paths) {
-            if (!result.containsKey(path.get(1))) {
-                result.put(path.get(1), path.get(1));
+            for (char wordChar : word.toCharArray()) {
+                morse.append(morseCode[(int) wordChar - 97]);
             }
+
+            resultSet.add(morse.toString());
         }
 
-        for (List<String> path : paths) {
-            result.remove(path.get(0));
-        }
-
-//        return result.entrySet().iterator().hasNext() ? result.entrySet().iterator().next().getValue() : null;
+//        return resultSet.size();
 
         System.out.println("J Tag");
     }
