@@ -14,60 +14,30 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-//        TreeNode root1 = new TreeNode(2, new TreeNode(1), new TreeNode(4));
-//        TreeNode root2 = new TreeNode(1, new TreeNode(0), new TreeNode(3));
+        String S = "ababcbacadefegdehijhklij";
 
-        TreeNode root1 = new TreeNode(0, new TreeNode(-10), new TreeNode(10));
-        TreeNode root2 = new TreeNode(5, new TreeNode(1, new TreeNode(0), new TreeNode(2)), new TreeNode(7));
 
-        getAllElements(root1, root2);
 
         System.out.println("J Tag");
     }
 
-    private List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+    public List<Integer> partitionLabels(String S) {
         List<Integer> results = new ArrayList<>();
 
-        List<Integer> root1List = getAllElementsOneNode(root1);
-        List<Integer> root2List = getAllElementsOneNode(root2);
-        int idx1 = 0, idx2 = 0;
+        if ("".equals(S) || S == null) {
+            return null;
+        }
+        int lastIndex = S.lastIndexOf(S.substring(0, 1));
 
-        while(idx1 != root1List.size() || idx2 != root2List.size()) {
-
-            if (idx1 == root1List.size()) {
-                results.add(root2List.get(idx2));
-                idx2++;
-                continue;
+        for (int i = 0; i < lastIndex; i++) {
+            if (S.lastIndexOf(S.substring(i, i+1)) > lastIndex) {
+                lastIndex = S.lastIndexOf(S.substring(i, i+1));
             }
-
-            if (idx2 == root2List.size()) {
-                results.add(root1List.get(idx1));
-                idx1++;
-                continue;
-            }
-
-            if (root1List.get(idx1) <= root2List.get(idx2)) {
-                results.add(root1List.get(idx1));
-                idx1++;
-            } else {
-                results.add(root2List.get(idx2));
-                idx2++;
-            }
+            results.add(i);
         }
 
-        return results;
-    }
-
-    private List<Integer> getAllElementsOneNode(TreeNode root) {
-        List<Integer> tempResults = new ArrayList<>();
-
-        if (root == null) return tempResults;
-
-        tempResults.addAll(getAllElementsOneNode(root.left));
-        tempResults.add(root.val);
-        tempResults.addAll(getAllElementsOneNode(root.right));
-
-        return tempResults;
+        S = S.length() == lastIndex+1 ?
+        if ()
     }
 
     public class TreeNode {
