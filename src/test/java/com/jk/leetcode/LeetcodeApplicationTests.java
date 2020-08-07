@@ -16,7 +16,7 @@ class LeetcodeApplicationTests {
     void contextLoads() {
         String S = "ababcbacadefegdehijhklij";
 
-
+        List<Integer> results = partitionLabels(S);
 
         System.out.println("J Tag");
     }
@@ -25,19 +25,24 @@ class LeetcodeApplicationTests {
         List<Integer> results = new ArrayList<>();
 
         if ("".equals(S) || S == null) {
-            return null;
+            return results;
         }
         int lastIndex = S.lastIndexOf(S.substring(0, 1));
 
-        for (int i = 0; i < lastIndex; i++) {
+        for (int i = 0; i <= lastIndex; i++) {
             if (S.lastIndexOf(S.substring(i, i+1)) > lastIndex) {
                 lastIndex = S.lastIndexOf(S.substring(i, i+1));
+                continue;
             }
-            results.add(i);
+            results.clear();
+            results.add(i+1);
         }
 
-        S = S.length() == lastIndex+1 ?
-        if ()
+        S = S.substring(lastIndex + 1);
+
+        results.addAll(partitionLabels(S));
+
+        return results;
     }
 
     public class TreeNode {
