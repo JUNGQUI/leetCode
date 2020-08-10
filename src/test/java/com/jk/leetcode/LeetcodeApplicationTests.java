@@ -14,35 +14,28 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String S = "ababcbacadefegdehijhklij";
+        int[] prices = new int[] {
+                8,4,6,2,3
+        };
 
-        List<Integer> results = partitionLabels(S);
+        int[] results = new int[prices.length];
+
+        for (int i = 0; i < prices.length; i++) {
+            boolean changedFlag = false;
+            for (int j = i+1; j < prices.length; j++) {
+                if (prices[i] >= prices[j]) {
+                    results[i] = prices[i] - prices[j];
+                    changedFlag = true;
+                    break;
+                }
+            }
+
+            if (results[i] == 0 && !changedFlag) {
+                results[i] = prices[i];
+            }
+        }
 
         System.out.println("J Tag");
-    }
-
-    public List<Integer> partitionLabels(String S) {
-        List<Integer> results = new ArrayList<>();
-
-        if ("".equals(S) || S == null) {
-            return results;
-        }
-        int lastIndex = S.lastIndexOf(S.substring(0, 1));
-
-        for (int i = 0; i <= lastIndex; i++) {
-            if (S.lastIndexOf(S.substring(i, i+1)) > lastIndex) {
-                lastIndex = S.lastIndexOf(S.substring(i, i+1));
-                continue;
-            }
-            results.clear();
-            results.add(i+1);
-        }
-
-        S = S.substring(lastIndex + 1);
-
-        results.addAll(partitionLabels(S));
-
-        return results;
     }
 
     public class TreeNode {
