@@ -15,16 +15,17 @@ class LeetcodeApplicationTests {
 
         StringBuilder result = new StringBuilder();
         boolean sortingType = true;
-        char charResult = (char) (sortingType ? 123 : 96);
+        char charResult = (char) 96;
 
         while(s.length() != 0) {
-            String choosenString = sorting(s, charResult, sortingType);
-            if (choosenString == null) {
+            char choosenString = sorting(s, charResult, sortingType);
+            if (choosenString == (char) 0) {
                 sortingType = !sortingType;
-                charResult = (char) (sortingType ? 123 : 96);
+                charResult = (char) (sortingType ? 96 : 123);
             } else {
-                s = s.replaceFirst(choosenString, "");
+                s = s.replaceFirst(String.valueOf(choosenString), "");
                 result.append(choosenString);
+                charResult = choosenString;
             }
         }
 
@@ -32,18 +33,26 @@ class LeetcodeApplicationTests {
     }
 
     private char sorting (String s, char prev, boolean sortingType) {
+        char inputedPrev = prev;
+        prev = sortingType ? (char) 123 : (char) 96;
         for (int i = 0; i < s.length(); i++) {
             if (sortingType) {
-                prev = (int) prev < s.charAt(i) ? prev : s.charAt(i);
+                prev = inputedPrev < s.charAt(i) && s.charAt(i) < prev
+                        ? s.charAt(i) :
+                        s.charAt(i) < prev ?
+                                s.charAt(i) : prev;
             } else {
-                prev = (int) prev > s.charAt(i) ? prev : s.charAt(i);
+                prev = prev > s.charAt(i) && s.charAt(i) > inputedPrev
+                        ? s.charAt(i) :
+                        prev > s.charAt(i) ?
+                                prev : s.charAt(i);
             }
         }
 
-        if (prev == (char) 96 || prev == (char) 123) {
+        if (prev == (char) 96 || prev == (char) 123 || prev == inputedPrev) {
             return (char) 0;
         } else {
-            return String.valueOf(prev);
+            return prev;
         }
     }
 
