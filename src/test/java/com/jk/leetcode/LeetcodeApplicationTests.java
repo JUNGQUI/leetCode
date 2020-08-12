@@ -4,38 +4,47 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @SpringBootTest
 class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] prices = new int[] {
-                8,4,6,2,3
-        };
+        String s = "aaaabbbbcccc";
 
-        int[] results = new int[prices.length];
+        StringBuilder result = new StringBuilder();
+        boolean sortingType = true;
+        char charResult = (char) (sortingType ? 123 : 96);
 
-        for (int i = 0; i < prices.length; i++) {
-            boolean changedFlag = false;
-            for (int j = i+1; j < prices.length; j++) {
-                if (prices[i] >= prices[j]) {
-                    results[i] = prices[i] - prices[j];
-                    changedFlag = true;
-                    break;
-                }
-            }
-
-            if (results[i] == 0 && !changedFlag) {
-                results[i] = prices[i];
+        while(s.length() != 0) {
+            String choosenString = sorting(s, charResult, sortingType);
+            if (choosenString == null) {
+                sortingType = !sortingType;
+                charResult = (char) (sortingType ? 123 : 96);
+            } else {
+                s = s.replaceFirst(choosenString, "");
+                result.append(choosenString);
             }
         }
 
         System.out.println("J Tag");
+    }
+
+    private char sorting (String s, char prev, boolean sortingType) {
+        for (int i = 0; i < s.length(); i++) {
+            if (sortingType) {
+                prev = (int) prev < s.charAt(i) ? prev : s.charAt(i);
+            } else {
+                prev = (int) prev > s.charAt(i) ? prev : s.charAt(i);
+            }
+        }
+
+        if (prev == (char) 96 || prev == (char) 123) {
+            return (char) 0;
+        } else {
+            return String.valueOf(prev);
+        }
     }
 
     public class TreeNode {
