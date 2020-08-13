@@ -11,21 +11,22 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String s = "aaaabbbbcccc";
+        String s = "spo";
 
         StringBuilder result = new StringBuilder();
         boolean sortingType = true;
         char charResult = (char) 96;
 
-        while(s.length() != 0) {
-            char choosenString = sorting(s, charResult, sortingType);
-            if (choosenString == (char) 0) {
+        while (s.length() != 0) {
+            char tempChar = sorting(s, charResult, sortingType);
+
+            if (charResult == tempChar) {
                 sortingType = !sortingType;
-                charResult = (char) (sortingType ? 96 : 123);
+                charResult = sortingType ? (char) 96 : (char) 123;
             } else {
-                s = s.replaceFirst(String.valueOf(choosenString), "");
-                result.append(choosenString);
-                charResult = choosenString;
+                result.append(tempChar);
+                s = s.replaceFirst(String.valueOf(tempChar), "");
+                charResult = tempChar;
             }
         }
 
@@ -33,27 +34,20 @@ class LeetcodeApplicationTests {
     }
 
     private char sorting (String s, char prev, boolean sortingType) {
-        char inputedPrev = prev;
+        char inputedchar = prev;
         prev = sortingType ? (char) 123 : (char) 96;
-        for (int i = 0; i < s.length(); i++) {
+
+        for (char charS : s.toCharArray()) {
             if (sortingType) {
-                prev = inputedPrev < s.charAt(i) && s.charAt(i) < prev
-                        ? s.charAt(i) :
-                        s.charAt(i) < prev ?
-                                s.charAt(i) : prev;
+                prev = inputedchar < charS && charS <= prev ? charS : prev;
             } else {
-                prev = prev > s.charAt(i) && s.charAt(i) > inputedPrev
-                        ? s.charAt(i) :
-                        prev > s.charAt(i) ?
-                                prev : s.charAt(i);
+                prev = inputedchar > charS && charS >= prev ? charS : prev;
             }
         }
 
-        if (prev == (char) 96 || prev == (char) 123 || prev == inputedPrev) {
-            return (char) 0;
-        } else {
-            return prev;
-        }
+        prev = prev == (char) 123 || prev == (char) 96 ? inputedchar : prev;
+
+        return prev;
     }
 
     public class TreeNode {
