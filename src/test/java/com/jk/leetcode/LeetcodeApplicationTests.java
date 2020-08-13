@@ -4,45 +4,44 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @SpringBootTest
 class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String S = "ababcbacadefegdehijhklij";
+        String s = "aaaabbbbcccc";
 
-        List<Integer> results = partitionLabels(S);
+        while(s.length() != 0) {
+
+        }
+
+        s = "rat";
 
         System.out.println("J Tag");
     }
 
-    public List<Integer> partitionLabels(String S) {
-        List<Integer> results = new ArrayList<>();
+    private String findSmallest(Map<String, String> result, String s) {
+        char smallest = s.charAt(0);
+        int idx = -1;
 
-        if ("".equals(S) || S == null) {
-            return results;
-        }
-        int lastIndex = S.lastIndexOf(S.substring(0, 1));
-
-        for (int i = 0; i <= lastIndex; i++) {
-            if (S.lastIndexOf(S.substring(i, i+1)) > lastIndex) {
-                lastIndex = S.lastIndexOf(S.substring(i, i+1));
-                continue;
+        for (int i = 0; i < s.length(); i++) {
+            if (smallest > s.charAt(i)) {
+                smallest = s.charAt(i);
+                idx = i;
             }
-            results.clear();
-            results.add(i+1);
         }
 
-        S = S.substring(lastIndex + 1);
+        return s.substring(0, idx) + s.substring(idx+1);
+    }
 
-        results.addAll(partitionLabels(S));
+    private String findBiggest(String s) {
 
-        return results;
+    }
+
+    public String sortString(String s) {
+
     }
 
     public class TreeNode {
