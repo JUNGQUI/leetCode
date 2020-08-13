@@ -13,35 +13,47 @@ class LeetcodeApplicationTests {
     void contextLoads() {
         String s = "aaaabbbbcccc";
 
+        StringBuilder result = new StringBuilder();
+        boolean sortingType = true;
+        char charResult = (char) 96;
+
         while(s.length() != 0) {
-
+            char choosenString = sorting(s, charResult, sortingType);
+            if (choosenString == (char) 0) {
+                sortingType = !sortingType;
+                charResult = (char) (sortingType ? 96 : 123);
+            } else {
+                s = s.replaceFirst(String.valueOf(choosenString), "");
+                result.append(choosenString);
+                charResult = choosenString;
+            }
         }
-
-        s = "rat";
 
         System.out.println("J Tag");
     }
 
-    private String findSmallest(Map<String, String> result, String s) {
-        char smallest = s.charAt(0);
-        int idx = -1;
-
+    private char sorting (String s, char prev, boolean sortingType) {
+        char inputedPrev = prev;
+        prev = sortingType ? (char) 123 : (char) 96;
         for (int i = 0; i < s.length(); i++) {
-            if (smallest > s.charAt(i)) {
-                smallest = s.charAt(i);
-                idx = i;
+            if (sortingType) {
+                prev = inputedPrev < s.charAt(i) && s.charAt(i) < prev
+                        ? s.charAt(i) :
+                        s.charAt(i) < prev ?
+                                s.charAt(i) : prev;
+            } else {
+                prev = prev > s.charAt(i) && s.charAt(i) > inputedPrev
+                        ? s.charAt(i) :
+                        prev > s.charAt(i) ?
+                                prev : s.charAt(i);
             }
         }
 
-        return s.substring(0, idx) + s.substring(idx+1);
-    }
-
-    private String findBiggest(String s) {
-
-    }
-
-    public String sortString(String s) {
-
+        if (prev == (char) 96 || prev == (char) 123 || prev == inputedPrev) {
+            return (char) 0;
+        } else {
+            return prev;
+        }
     }
 
     public class TreeNode {
