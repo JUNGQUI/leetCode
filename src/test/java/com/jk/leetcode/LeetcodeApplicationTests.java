@@ -11,43 +11,20 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String s = "spo";
+        int[] arr = new int[] {17, 18, 5, 4, 6, 1};
+        int[] result = new int[arr.length];
 
-        StringBuilder result = new StringBuilder();
-        boolean sortingType = true;
-        char charResult = (char) 96;
+        for (int i = 0; i < arr.length; i++) {
+            int maximum = 0;
 
-        while (s.length() != 0) {
-            char tempChar = sorting(s, charResult, sortingType);
-
-            if (charResult == tempChar) {
-                sortingType = !sortingType;
-                charResult = sortingType ? (char) 96 : (char) 123;
-            } else {
-                result.append(tempChar);
-                s = s.replaceFirst(String.valueOf(tempChar), "");
-                charResult = tempChar;
+            for (int j = i+1; j < arr.length; j++) {
+                maximum = arr[j] > maximum ? arr[j] : maximum;
             }
+
+            result[i] = maximum;
         }
 
         System.out.println("J Tag");
-    }
-
-    private char sorting (String s, char prev, boolean sortingType) {
-        char inputedchar = prev;
-        prev = sortingType ? (char) 123 : (char) 96;
-
-        for (char charS : s.toCharArray()) {
-            if (sortingType) {
-                prev = inputedchar < charS && charS <= prev ? charS : prev;
-            } else {
-                prev = inputedchar > charS && charS >= prev ? charS : prev;
-            }
-        }
-
-        prev = prev == (char) 123 || prev == (char) 96 ? inputedchar : prev;
-
-        return prev;
     }
 
     public class TreeNode {
