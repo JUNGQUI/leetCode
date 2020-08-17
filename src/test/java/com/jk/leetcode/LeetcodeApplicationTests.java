@@ -11,20 +11,71 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        int[] arr = new int[] {17, 18, 5, 4, 6, 1};
-        int[] result = new int[arr.length];
+        List<TreeNode> result = allPossibleFBT(7);
 
-        for (int i = 0; i < arr.length; i++) {
-            int maximum = 0;
-
-            for (int j = i+1; j < arr.length; j++) {
-                maximum = arr[j] > maximum ? arr[j] : maximum;
-            }
-
-            result[i] = maximum;
-        }
+        TreeNode treeNode = new TreeNode(0, new TreeNode(0, new TreeNode(0), null), new TreeNode(0));
+        TreeNode cloned = this.cloneNode(treeNode);
 
         System.out.println("J Tag");
+    }
+
+    public List<TreeNode> allPossibleFBT(int N) {
+        TreeNode root = new TreeNode(0);
+
+        makeFBT(root, N-1);
+
+        return new ArrayList<>();
+    }
+
+    private List<TreeNode> makeFBT(TreeNode root, int N) {
+        List<TreeNode> tempResult = new ArrayList<>();
+
+        if (N == 0) {
+            tempResult.add(root);
+            return tempResult;
+        }
+
+        root.left = new TreeNode(0);
+        root.right = new TreeNode(0);
+
+        TreeNode left = cloneNode(root);
+        TreeNode right = cloneNode(root);
+
+        tempResult.add(makeFBT(left.left, N-2, true));
+        tempResult.add(makeFBT(left.right, N-2, false));
+        tempResult.add(makeFBT(right.left, N-2, true));
+        tempResult.add(makeFBT(right.right, N-2, false));
+
+        return tempResult;
+    }
+
+    private TreeNode makeFBT(TreeNode root, int N, boolean flag) {
+        if (N == 0) {
+            return root;
+        }
+
+        root.left = new TreeNode(0);
+        root.right = new TreeNode(0);
+
+        if (flag) {
+            return makeFBT(root.left, N-2, flag);
+        } else {
+            return makeFBT(root.right, N-2, flag);
+        }
+    }
+
+    private TreeNode cloneNode(TreeNode original) {
+        TreeNode cloned = new TreeNode(original.val);
+
+        if (original.left != null) {
+            cloned.left = cloneNode(original.left);
+        }
+
+        if (original.right != null) {
+            cloned.right = cloneNode(original.right);
+        }
+
+        return cloned;
     }
 
     public class TreeNode {
