@@ -11,34 +11,52 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        String s = "bab", t = "aba";
-
-        int result = 0;
-        int[] charDic = new int[26];
-
-        for (int i = 0; i < s.length(); i++) {
-            charDic[s.charAt(i) - 'a']++;
-            charDic[t.charAt(i) - 'a']--;
-        }
-
-        for (int j = 0; j < charDic.length; j++) {
-            result += Math.max(charDic[j], 0);
-        }
+        CustomStack customStack = new CustomStack(3);
+        customStack.push(1);
+        customStack.push(2);
+        customStack.pop();
+        customStack.push(2);
+        customStack.push(3);
+        customStack.push(4);
 
         System.out.println("J Tag");
     }
 
-    private List<Integer> searchBST(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
+    class CustomStack {
+
+        private int[] customStack;
+        private int currentIdx;
+
+        public CustomStack(int maxSize) {
+            customStack = new int[maxSize];
+            currentIdx = -1;
         }
-        List<Integer> element = new ArrayList<>();
 
-        element.add(root.val);
-        element.addAll(searchBST(root.left));
-        element.addAll(searchBST(root.right));
+        public void push(int x) {
+            if (currentIdx < customStack.length - 1) {
+                currentIdx++;
+                customStack[currentIdx] = x;
+            }
+        }
 
-        return element;
+        public int pop() {
+            int result = -1;
+
+            if (currentIdx != -1) {
+                result = customStack[currentIdx];
+                customStack[currentIdx] = 0;
+                currentIdx--;
+            }
+
+            return result;
+        }
+
+        public void increment(int k, int val) {
+            k = k > customStack.length ? customStack.length : k;
+            for (int i = 0; i < k; i++) {
+                customStack[i]+=val;
+            }
+        }
     }
 
     public class TreeNode {
