@@ -11,36 +11,21 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
+        String s = "bab", t = "aba";
 
-//        TreeNode root = new TreeNode(1, null, new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))));
-        TreeNode root = new TreeNode(
-                14,
-                new TreeNode(9, new TreeNode(2), new TreeNode(13)),
-                new TreeNode(16));
+        int result = 0;
+        int[] charDic = new int[26];
 
-        List<Integer> elements = searchBST(root);
-        elements.sort(Integer::compareTo);
+        for (int i = 0; i < s.length(); i++) {
+            charDic[s.charAt(i) - 'a']++;
+            charDic[t.charAt(i) - 'a']--;
+        }
 
-        TreeNode result = makeBST(null, elements);
+        for (int j = 0; j < charDic.length; j++) {
+            result += Math.max(charDic[j], 0);
+        }
 
         System.out.println("J Tag");
-    }
-
-    private TreeNode makeBST(TreeNode root, List<Integer> nums) {
-        if (nums == null || nums.size() == 0) {
-            return null;
-        }
-
-        if (nums.size() == 1) {
-            return new TreeNode(nums.get(0));
-        }
-
-        int index = nums.size()/2;
-        root = new TreeNode(nums.get(index));
-        root.left = makeBST(root.left, nums.subList(0, index));
-        root.right = makeBST(root.right, nums.subList(index+1, nums.size()));
-
-        return root;
     }
 
     private List<Integer> searchBST(TreeNode root) {
