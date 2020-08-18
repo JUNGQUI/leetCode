@@ -11,71 +11,49 @@ class LeetcodeApplicationTests {
 
     @Test
     void contextLoads() {
-        List<TreeNode> result = allPossibleFBT(7);
 
-        TreeNode treeNode = new TreeNode(0, new TreeNode(0, new TreeNode(0), null), new TreeNode(0));
-        TreeNode cloned = this.cloneNode(treeNode);
+//        TreeNode root = new TreeNode(1, null, new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))));
+        TreeNode root = new TreeNode(
+                14,
+                new TreeNode(9, new TreeNode(2), new TreeNode(13)),
+                new TreeNode(16));
+
+        List<Integer> elements = searchBST(root);
+        elements.sort(Integer::compareTo);
+
+        TreeNode result = makeBST(null, elements);
 
         System.out.println("J Tag");
     }
 
-    public List<TreeNode> allPossibleFBT(int N) {
-        TreeNode root = new TreeNode(0);
+    private TreeNode makeBST(TreeNode root, List<Integer> nums) {
+        if (nums == null || nums.size() == 0) {
+            return null;
+        }
 
-        makeFBT(root, N-1);
+        if (nums.size() == 1) {
+            return new TreeNode(nums.get(0));
+        }
 
-        return new ArrayList<>();
+        int index = nums.size()/2;
+        root = new TreeNode(nums.get(index));
+        root.left = makeBST(root.left, nums.subList(0, index));
+        root.right = makeBST(root.right, nums.subList(index+1, nums.size()));
+
+        return root;
     }
 
-    private List<TreeNode> makeFBT(TreeNode root, int N) {
-        List<TreeNode> tempResult = new ArrayList<>();
-
-        if (N == 0) {
-            tempResult.add(root);
-            return tempResult;
+    private List<Integer> searchBST(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
         }
+        List<Integer> element = new ArrayList<>();
 
-        root.left = new TreeNode(0);
-        root.right = new TreeNode(0);
+        element.add(root.val);
+        element.addAll(searchBST(root.left));
+        element.addAll(searchBST(root.right));
 
-        TreeNode left = cloneNode(root);
-        TreeNode right = cloneNode(root);
-
-        tempResult.add(makeFBT(left.left, N-2, true));
-        tempResult.add(makeFBT(left.right, N-2, false));
-        tempResult.add(makeFBT(right.left, N-2, true));
-        tempResult.add(makeFBT(right.right, N-2, false));
-
-        return tempResult;
-    }
-
-    private TreeNode makeFBT(TreeNode root, int N, boolean flag) {
-        if (N == 0) {
-            return root;
-        }
-
-        root.left = new TreeNode(0);
-        root.right = new TreeNode(0);
-
-        if (flag) {
-            return makeFBT(root.left, N-2, flag);
-        } else {
-            return makeFBT(root.right, N-2, flag);
-        }
-    }
-
-    private TreeNode cloneNode(TreeNode original) {
-        TreeNode cloned = new TreeNode(original.val);
-
-        if (original.left != null) {
-            cloned.left = cloneNode(original.left);
-        }
-
-        if (original.right != null) {
-            cloned.right = cloneNode(original.right);
-        }
-
-        return cloned;
+        return element;
     }
 
     public class TreeNode {
