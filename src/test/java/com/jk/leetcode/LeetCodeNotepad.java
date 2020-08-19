@@ -2,6 +2,9 @@ package com.jk.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LeetCodeNotepad {
     @Test
     public void test() {
@@ -14,6 +17,26 @@ public class LeetCodeNotepad {
 
 
         System.out.println("J Tag");
+    }
+
+    public int[] deckRevealedIncreasing(int[] deck) {
+        if (deck.length <= 1) {
+            return deck;
+        }
+
+        int[] result = new int[deck.length];
+        int idx = 0;
+
+        while(true) {
+            if (deck[0] == 0) {
+                break;
+            }
+
+            result[idx] = deck[0];
+            idx++;
+        }
+
+        return result;
     }
 
     class CustomStack {
