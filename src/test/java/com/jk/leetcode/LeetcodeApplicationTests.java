@@ -1,5 +1,6 @@
 package com.jk.leetcode;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
@@ -12,40 +13,33 @@ class LeetcodeApplicationTests {
     @Test
     void contextLoads() {
 
-        int[] deck = new int[] {
-                17,13,11,2,3,5,7
-        };
-
-        int[] whatDeck = deckRevealedIncreasing(deck);
 
         System.out.println("J Tag");
     }
 
-    public int[] deckRevealedIncreasing(int[] deck) {
-        Arrays.sort(deck);
-        int[] newDeck = new int[] {deck[deck.length-1]};
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> results = new ArrayList<>();
 
-        for (int i = deck.length-2; i >= 0; i--) {
-            newDeck = reorder(newDeck);
-            int[] addDeck = new int[newDeck.length+1];
-            addDeck[0] = deck[i];
-            System.arraycopy(newDeck, 0, addDeck, 1, newDeck.length);
-            newDeck = addDeck;
+        for (int i = left; i <= right; i++) {
+            if(selfDividingNumbersHelper(i)) {
+                results.add(i);
+            }
         }
 
-        return newDeck;
+        return results;
     }
 
-    public int[] reorder(int[] tempDeck) {
-        int[] reorderDeck = new int[tempDeck.length];
+    private boolean selfDividingNumbersHelper(int number) {
+        int tempNumber = number;
+        while (tempNumber != 0) {
+            int element = tempNumber%10;
+            if (element == 0 || number%element != 0) {
+                return false;
+            }
 
-        for (int i = 1; i < tempDeck.length; i++) {
-            reorderDeck[i] = tempDeck[i-1];
+            tempNumber = tempNumber/10;
         }
-
-        reorderDeck[0] = tempDeck[tempDeck.length-1];
-
-        return reorderDeck;
+        return true;
     }
 
     class CustomStack {
