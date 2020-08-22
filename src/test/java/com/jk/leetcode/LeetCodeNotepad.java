@@ -6,27 +6,45 @@ import org.junit.jupiter.api.Test;
 public class LeetCodeNotepad {
     @Test
     public void test() {
+        TreeNode root = new TreeNode(1,
+                new TreeNode(1,
+                        new TreeNode(1,
+                                new TreeNode(0),
+                                null),
+                        new TreeNode(1)),
+                new TreeNode(0,
+                        new TreeNode(0),
+                        new TreeNode(1)
+                )
+        );
+
+        root = pruneTree(root);
+
         System.out.println("J Tag");
     }
 
-    public int[] deckRevealedIncreasing(int[] deck) {
-        if (deck.length <= 1) {
-            return deck;
+    public TreeNode pruneTree(TreeNode root) {
+        if (root == null) {
+            return null;
         }
 
-        int[] result = new int[deck.length];
-        int idx = 0;
-
-        while(true) {
-            if (deck[0] == 0) {
-                break;
+        if (root.left == null && root.right == null) {
+            return root.val == 1 ? root : null;
+        } else {
+            if (root.left != null) {
+                root.left = pruneTree(root.left);
             }
 
-            result[idx] = deck[0];
-            idx++;
-        }
+            if (root.right != null) {
+                root.right = pruneTree(root.right);
+            }
 
-        return result;
+            if (root.left == null && root.right == null) {
+                return root.val == 1 ? root : null;
+            } else {
+                return root;
+            }
+        }
     }
 
     class CustomStack {
