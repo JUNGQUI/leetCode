@@ -1,45 +1,19 @@
 package com.jk.leetcode;
 
-import org.apache.commons.lang3.math.NumberUtils;
+import com.jk.leetcode.node.TreeNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 
 @SpringBootTest
 class LeetcodeApplicationTests {
 
+    HashMap<Integer, Integer> values = new HashMap<>();
+
     @Test
     void contextLoads() {
-
-
         System.out.println("J Tag");
-    }
-
-    public List<Integer> selfDividingNumbers(int left, int right) {
-        List<Integer> results = new ArrayList<>();
-
-        for (int i = left; i <= right; i++) {
-            if(selfDividingNumbersHelper(i)) {
-                results.add(i);
-            }
-        }
-
-        return results;
-    }
-
-    private boolean selfDividingNumbersHelper(int number) {
-        int tempNumber = number;
-        while (tempNumber != 0) {
-            int element = tempNumber%10;
-            if (element == 0 || number%element != 0) {
-                return false;
-            }
-
-            tempNumber = tempNumber/10;
-        }
-        return true;
     }
 
     class CustomStack {
@@ -98,5 +72,37 @@ class LeetcodeApplicationTests {
         ListNode() {}
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+}
+
+class FindElements {
+    HashMap<Integer, Integer> values;
+
+    public FindElements(TreeNode root) {
+        values = new HashMap<>();
+        fixElements(root);
+    }
+
+    private void fixElements(TreeNode root) {
+        if (root.val == -1) {
+            root.val = 0;
+            values.put(0, 0);
+        }
+
+        if (root.left != null) {
+            root.left.val = root.val * 2 + 1;
+            values.put(root.val * 2 + 1, root.val * 2 + 1);
+            fixElements(root.left);
+        }
+
+        if (root.right != null) {
+            root.right.val = root.val * 2 + 2;
+            values.put(root.val * 2 + 2, root.val * 2 + 2);
+            fixElements(root.right);
+        }
+    }
+
+    public boolean find(int target) {
+        return values.containsKey(target);
     }
 }

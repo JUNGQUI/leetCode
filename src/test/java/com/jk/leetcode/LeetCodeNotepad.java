@@ -2,20 +2,10 @@ package com.jk.leetcode;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class LeetCodeNotepad {
     @Test
     public void test() {
-        int[] deck = new int[] {
-            2, 13, 3, 11, 5, 17, 7
-        };
-
-        int[] results = new int[deck.length];
-
-
-
         System.out.println("J Tag");
     }
 
@@ -78,11 +68,11 @@ public class LeetCodeNotepad {
 
     public class TreeNode {
         int val;
-        LeetcodeApplicationTests.TreeNode left;
-        LeetcodeApplicationTests.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, LeetcodeApplicationTests.TreeNode left, LeetcodeApplicationTests.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
@@ -91,9 +81,9 @@ public class LeetCodeNotepad {
 
     public class ListNode {
         int val;
-        LeetcodeApplicationTests.ListNode next;
+        ListNode next;
         ListNode() {}
         ListNode(int val) { this.val = val; }
-        ListNode(int val, LeetcodeApplicationTests.ListNode next) { this.val = val; this.next = next; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 }
