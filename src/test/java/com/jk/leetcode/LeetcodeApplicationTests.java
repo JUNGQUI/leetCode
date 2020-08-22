@@ -9,47 +9,43 @@ import java.util.*;
 @SpringBootTest
 class LeetcodeApplicationTests {
 
-    int[] results = new int[0];
-    int idx = 0;
-
     @Test
     void contextLoads() {
 
         int[] deck = new int[] {
                 17,13,11,2,3,5,7
         };
-        results = new int[deck.length];
-        deckRevealedIncreasing(deck);
+
+        int[] whatDeck = deckRevealedIncreasing(deck);
 
         System.out.println("J Tag");
     }
 
     public int[] deckRevealedIncreasing(int[] deck) {
-        while (deck.length != 0) {
-            deck = this.deckHelper(deck);
+        Arrays.sort(deck);
+        int[] newDeck = new int[] {deck[deck.length-1]};
+
+        for (int i = deck.length-2; i >= 0; i--) {
+            newDeck = reorder(newDeck);
+            int[] addDeck = new int[newDeck.length+1];
+            addDeck[0] = deck[i];
+            System.arraycopy(newDeck, 0, addDeck, 1, newDeck.length);
+            newDeck = addDeck;
         }
 
-        return results;
+        return newDeck;
     }
 
-    public int[] deckHelper(int[] deck) {
-        results[idx] = deck[0];
-        idx++;
-        int[] modifiedDeck = new int[deck.length-1];
+    public int[] reorder(int[] tempDeck) {
+        int[] reorderDeck = new int[tempDeck.length];
 
-        if (modifiedDeck.length == 0) {
-            return new int[0];
+        for (int i = 1; i < tempDeck.length; i++) {
+            reorderDeck[i] = tempDeck[i-1];
         }
 
-        for (int i = 2; i < deck.length; i++) {
-            modifiedDeck[i-2] = deck[i];
-        }
+        reorderDeck[0] = tempDeck[tempDeck.length-1];
 
-        int deckIdx = deck.length == 1 ? 0 : 1;
-
-        modifiedDeck[modifiedDeck.length-1] = deck[deckIdx];
-
-        return modifiedDeck;
+        return reorderDeck;
     }
 
     class CustomStack {
