@@ -9,17 +9,47 @@ import java.util.*;
 @SpringBootTest
 class LeetcodeApplicationTests {
 
+    int[] results = new int[0];
+    int idx = 0;
+
     @Test
     void contextLoads() {
-        CustomStack customStack = new CustomStack(3);
-        customStack.push(1);
-        customStack.push(2);
-        customStack.pop();
-        customStack.push(2);
-        customStack.push(3);
-        customStack.push(4);
+
+        int[] deck = new int[] {
+                17,13,11,2,3,5,7
+        };
+        results = new int[deck.length];
+        deckRevealedIncreasing(deck);
 
         System.out.println("J Tag");
+    }
+
+    public int[] deckRevealedIncreasing(int[] deck) {
+        while (deck.length != 0) {
+            deck = this.deckHelper(deck);
+        }
+
+        return results;
+    }
+
+    public int[] deckHelper(int[] deck) {
+        results[idx] = deck[0];
+        idx++;
+        int[] modifiedDeck = new int[deck.length-1];
+
+        if (modifiedDeck.length == 0) {
+            return new int[0];
+        }
+
+        for (int i = 2; i < deck.length; i++) {
+            modifiedDeck[i-2] = deck[i];
+        }
+
+        int deckIdx = deck.length == 1 ? 0 : 1;
+
+        modifiedDeck[modifiedDeck.length-1] = deck[deckIdx];
+
+        return modifiedDeck;
     }
 
     class CustomStack {
