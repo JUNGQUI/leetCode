@@ -2,36 +2,28 @@ package com.jk.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 
 public class LeetCodeNotepad {
     @Test
     public void test() {
-        TreeNode t1 = new TreeNode(1,
-                new TreeNode(3, new TreeNode(5), null),
-                new TreeNode(2));
-
-        TreeNode t2 = new TreeNode(2,
-                new TreeNode(1, null, new TreeNode(4)),
-                new TreeNode(3, null, new TreeNode(7))
-        );
-
-        TreeNode result = mergeTrees(t1, t2);
-
+        repeatedNTimes(new int[] {5,1,5,2,5,3,5,4});
         System.out.println("J Tag");
     }
 
-    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if (t1 == null && t2 == null) {
-            return null;
+    public int repeatedNTimes(int[] A) {
+        Set<Integer>set=new HashSet();
+        for(int i:A)
+        {
+            if(set.contains(i))
+                return i;
+            set.add(i);
         }
-
-        int val = (t1 != null ? t1.val : 0) + (t2 != null ? t2.val : 0);
-
-        TreeNode result = new TreeNode(val);
-        result.left = mergeTrees(t1 == null ? null : t1.left, t2 == null ? null : t2.left);
-        result.right = mergeTrees(t1 == null ? null : t1.right, t2 == null ? null : t2.right);
-
-        return result;
+        return -1;
     }
 
     class CustomStack {
