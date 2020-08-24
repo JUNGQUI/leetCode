@@ -1,6 +1,7 @@
 package com.jk.leetcode;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,19 +12,28 @@ import java.util.Set;
 public class LeetCodeNotepad {
     @Test
     public void test() {
-        repeatedNTimes(new int[] {5,1,5,2,5,3,5,4});
-        System.out.println("J Tag");
-    }
+        String S = "()())()";
 
-    public int repeatedNTimes(int[] A) {
-        Set<Integer>set=new HashSet();
-        for(int i:A)
-        {
-            if(set.contains(i))
-                return i;
-            set.add(i);
+        int A = 0, B = 0;
+
+        for (int i = 0; i < S.length(); i++) {
+            String s = S.substring(i, i+1);
+
+            switch (s) {
+                case "(":
+                    A++;
+                    break;
+                case ")":
+                    if (A != 0) {
+                        B++;
+                    } else {
+                        A--;
+                    }
+                    break;
+            }
         }
-        return -1;
+
+        System.out.println("J Tag");
     }
 
     class CustomStack {
