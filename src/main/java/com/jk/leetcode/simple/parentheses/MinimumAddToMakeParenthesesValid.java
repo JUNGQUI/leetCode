@@ -1,6 +1,6 @@
 package com.jk.leetcode.simple.parentheses;
 
-public class MinimumAddToMakeParenthesesVaild {
+public class MinimumAddToMakeParenthesesValid {
     class Solution {
         public int minAddToMakeValid(String S) {
             int A = 0, B = 0;
