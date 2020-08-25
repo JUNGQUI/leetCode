@@ -7,57 +7,46 @@ import java.util.*;
 
 
 public class LeetCodeNotepad {
+    int result = 0;
+
     @Test
     public void test() {
-        String[] words = new String[] {
-                "qkuuhjqesjpdrjmkmsiq",
-                "bhtbqamxanbwrtrabqzw",
-                "ssfthcliekxllsndxluk",
-                "ukffypbkgcebqeppsnhw",
-                "jlqnyyyypmsfgbeardur"
-        };
+        List<String> arrays = new ArrayList<>();
+        arrays.add("110");
+        arrays.add("1100");
+        arrays.add("101");
+        int[] arr = new int[]{0, 2, 1};
 
-        String pattern = "ghtxpauhingxekhnoqnk";
+        Arrays.sort(arr);
 
-        findAndReplacePattern(words, pattern);
+        arrays.sort(Comparator.reverseOrder());
 
         System.out.println("J Tag");
     }
 
-    public List<String> findAndReplacePattern(String[] words, String pattern) {
-        int[] patternNumber = makePattern(pattern);
-        List<String> results = new ArrayList<>();
 
-        for(String word : words) {
-            int[] wordPattern = makePattern(word);
-
-            if (Arrays.equals(wordPattern, patternNumber)) {
-                results.add(word);
-            }
-        }
-
-        return results;
-    }
-
-    private int[] makePattern(String pattern) {
-        int[] result = new int[pattern.length()];
-        int key = 0;
-        char[] patterns = pattern.toCharArray();
-        Map<Character, Integer> dictionary = new HashMap<>();
-
-        for (int i = pattern.length()-1; i >= 0; i--) {
-            if (!dictionary.containsKey(patterns[i])) {
-                dictionary.put(patterns[i], key);
-                result[i] = key;
-                key++;
-            } else {
-                int tempKey = dictionary.get(patterns[i]);
-                result[i] = tempKey;
-            }
-        }
-
-        return result;
-    }
+//    public int uniquePathsIII(int[][] grid) {
+//        int i = 0, j = 0, zeros = 0;
+//
+//        for (int col = 0; col < grid.length; col++) {
+//            for (int row = 0; row < grid[col].length; row++) {
+//                if (grid[col][row] == 1) {
+//                    i = col;
+//                    j = row;
+//                } else if (grid[col][row] == 0) {
+//                    zeros++;
+//                }
+//            }
+//        }
+//
+//
+//    }
+//
+//    private void countPath(int[][] grid, int i, int j, int zeros) {
+//        if (i < 0 || j < 0 || grid[i][j] < 0) {
+//            return;
+//        }
+//    }
 
     class CustomStack {
 
