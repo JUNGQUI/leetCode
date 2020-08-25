@@ -12,28 +12,32 @@ import java.util.Set;
 public class LeetCodeNotepad {
     @Test
     public void test() {
-        String S = "()())()";
+        matrixBlockSum(new int[][] {{67, 64, 78},{99, 98, 38},{82, 46, 46},{6, 52, 55},{55, 99, 45}}, 3);
+        matrixBlockSum(new int[][] {{1,2,3},{4, 5, 6},{7, 8, 9}}, 1);
+        System.out.println("J Tag");
+    }
 
-        int A = 0, B = 0;
+    public int[][] matrixBlockSum(int[][] mat, int K) {
+        int m = mat.length, n = mat[0].length;
+        int[][] answer = new int[m][n];
 
-        for (int i = 0; i < S.length(); i++) {
-            String s = S.substring(i, i+1);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int minRow = Math.max(0, j-K), maxRow = Math.min(n, j+K+1),
+                        minCol = Math.max(0, i-K), maxCol = Math.min(m, i+K+1),
+                        result = 0;
 
-            switch (s) {
-                case "(":
-                    A++;
-                    break;
-                case ")":
-                    if (A != 0) {
-                        B++;
-                    } else {
-                        A--;
+                for (int col = minCol; col < maxCol; col++) {
+                    for (int row = minRow; row < maxRow; row++) {
+                        result += mat[col][row];
                     }
-                    break;
+                }
+
+                answer[i][j] = result;
             }
         }
 
-        System.out.println("J Tag");
+        return answer;
     }
 
     class CustomStack {
