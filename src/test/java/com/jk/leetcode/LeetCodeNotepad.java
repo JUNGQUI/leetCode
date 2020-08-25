@@ -9,36 +9,54 @@ import java.util.*;
 public class LeetCodeNotepad {
     @Test
     public void test() {
-        int[] target = new int[] {1, 2, 3, 4};
-        int[] arr = new int[] {4, 3, 1, 2};
+        String[] words = new String[] {
+                "qkuuhjqesjpdrjmkmsiq",
+                "bhtbqamxanbwrtrabqzw",
+                "ssfthcliekxllsndxluk",
+                "ukffypbkgcebqeppsnhw",
+                "jlqnyyyypmsfgbeardur"
+        };
 
-        Map<Integer, Integer> resultMap = new HashMap<>();
+        String pattern = "ghtxpauhingxekhnoqnk";
 
-        for (int tagetElement : target) {
-            if (resultMap.containsKey(tagetElement)) {
-                resultMap.put(tagetElement, resultMap.get(tagetElement) + 1);
-            } else {
-                resultMap.put(tagetElement, 1);
-            }
-        }
-
-        boolean result = true;
-
-        for (int arrElement : arr) {
-            if (!resultMap.containsKey(arrElement)) {
-                result = false;
-                break;
-            } else {
-                if (resultMap.get(arrElement) - 1 < 0) {
-                    result = false;
-                    break;
-                } else {
-                    resultMap.put(arrElement, resultMap.get(arrElement) - 1);
-                }
-            }
-        }
+        findAndReplacePattern(words, pattern);
 
         System.out.println("J Tag");
+    }
+
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
+        int[] patternNumber = makePattern(pattern);
+        List<String> results = new ArrayList<>();
+
+        for(String word : words) {
+            int[] wordPattern = makePattern(word);
+
+            if (Arrays.equals(wordPattern, patternNumber)) {
+                results.add(word);
+            }
+        }
+
+        return results;
+    }
+
+    private int[] makePattern(String pattern) {
+        int[] result = new int[pattern.length()];
+        int key = 0;
+        char[] patterns = pattern.toCharArray();
+        Map<Character, Integer> dictionary = new HashMap<>();
+
+        for (int i = pattern.length()-1; i >= 0; i--) {
+            if (!dictionary.containsKey(patterns[i])) {
+                dictionary.put(patterns[i], key);
+                result[i] = key;
+                key++;
+            } else {
+                int tempKey = dictionary.get(patterns[i]);
+                result[i] = tempKey;
+            }
+        }
+
+        return result;
     }
 
     class CustomStack {
