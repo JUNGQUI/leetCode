@@ -7,23 +7,51 @@ import java.util.*;
 
 
 public class LeetCodeNotepad {
-    int result = 0;
 
     @Test
     public void test() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("110");
-        arrays.add("1100");
-        arrays.add("101");
-        int[] arr = new int[]{0, 2, 1};
+//        int[][] matrix = new int[][] {
+//                {0,1,1,1},
+//                {1,1,1,1},
+//                {0,1,1,1}
+//        };
 
-        Arrays.sort(arr);
+        int[][] matrix = new int[][] {
+                {1,1,0,0,1},
+                {1,0,1,1,1},
+                {1,1,1,1,1},
+                {1,0,1,0,1},
+                {0,0,1,0,1}
+        };
 
-        arrays.sort(Comparator.reverseOrder());
+        int result = countSquares(matrix);
 
         System.out.println("J Tag");
     }
 
+    public int countSquares(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int result = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 1) {
+                    result++;
+                    int maximumRec = Math.min(Math.min(m-i, m), Math.min(n-j, n));
+
+                    for (int rec = 1; rec < maximumRec; rec++) {
+                        if (matrix[i][j+rec] == 1 && matrix[i+rec][j] == 1) {
+                            for (int )
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 
 //    public int uniquePathsIII(int[][] grid) {
 //        int i = 0, j = 0, zeros = 0;
