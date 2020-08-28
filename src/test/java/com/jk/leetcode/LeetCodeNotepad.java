@@ -30,27 +30,19 @@ public class LeetCodeNotepad {
     }
 
     public int countSquares(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        int result = 0;
+        int count = 0;
+        int numRow = matrix.length;
+        int numCol = matrix[0].length;
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 1) {
-                    result++;
-                    int maximumRec = Math.min(Math.min(m-i, m), Math.min(n-j, n));
-
-                    for (int rec = 1; rec < maximumRec; rec++) {
-                        if (matrix[i][j+rec] == 1 && matrix[i+rec][j] == 1) {
-                            for (int )
-                        } else {
-                            break;
-                        }
-                    }
-                }
+        for (int i=0; i<numRow; ++i) {
+            for (int j=0; j<numCol; ++j) {
+                if (i != 0 && j != 0 && matrix[i][j] != 0) {
+                    matrix[i][j] = Math.min(matrix[i-1][j], Math.min(matrix[i][j-1], matrix[i-1][j-1])) + 1;
+                };
+                count += matrix[i][j];
             }
         }
-
-        return result;
+        return count;
     }
 
 //    public int uniquePathsIII(int[][] grid) {
