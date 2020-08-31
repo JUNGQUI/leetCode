@@ -10,63 +10,55 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-//        int[][] matrix = new int[][] {
-//                {0,1,1,1},
-//                {1,1,1,1},
-//                {0,1,1,1}
-//        };
+        TreeNode root = new TreeNode(
+                1,
+                new TreeNode(
+                        2,
+                        new TreeNode(2),
+                        null),
+                new TreeNode(
+                        3,
+                        new TreeNode(2),
+                        new TreeNode(4))
+        );
 
-        int[][] matrix = new int[][] {
-                {1,1,0,0,1},
-                {1,0,1,1,1},
-                {1,1,1,1,1},
-                {1,0,1,0,1},
-                {0,0,1,0,1}
-        };
-
-        int result = countSquares(matrix);
+        root = removeLeafNodes(root, 2);
 
         System.out.println("J Tag");
     }
 
-    public int countSquares(int[][] matrix) {
-        int count = 0;
-        int numRow = matrix.length;
-        int numCol = matrix[0].length;
+    public TreeNode removeLeafNodes(TreeNode root, int target) {
+        if (root == null) return null;
 
-        for (int i=0; i<numRow; ++i) {
-            for (int j=0; j<numCol; ++j) {
-                if (i != 0 && j != 0 && matrix[i][j] != 0) {
-                    matrix[i][j] = Math.min(matrix[i-1][j], Math.min(matrix[i][j-1], matrix[i-1][j-1])) + 1;
-                };
-                count += matrix[i][j];
+        if (root.left == null && root.right == null) {
+            if (root.val == target) {
+                return null;
+            } else {
+                return root;
             }
         }
-        return count;
+
+        root.left = removeLeafNodes(root.left, target);
+        root.right = removeLeafNodes(root.right, target);
+
+        if (root.left == null && root.right == null) {
+            if (root.val == target) {
+                return null;
+            }
+        }
+
+        return root;
     }
 
-//    public int uniquePathsIII(int[][] grid) {
-//        int i = 0, j = 0, zeros = 0;
-//
-//        for (int col = 0; col < grid.length; col++) {
-//            for (int row = 0; row < grid[col].length; row++) {
-//                if (grid[col][row] == 1) {
-//                    i = col;
-//                    j = row;
-//                } else if (grid[col][row] == 0) {
-//                    zeros++;
-//                }
-//            }
-//        }
-//
-//
-//    }
-//
-//    private void countPath(int[][] grid, int i, int j, int zeros) {
-//        if (i < 0 || j < 0 || grid[i][j] < 0) {
-//            return;
-//        }
-//    }
+    private TreeNode removeHelper(TreeNode root, int target) {
+        if (root.left == null && root.right == null) {
+            if (root.val == target) {
+                return null;
+            }
+        }
+
+        return root;
+    }
 
     class CustomStack {
 
