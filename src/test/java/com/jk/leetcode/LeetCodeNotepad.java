@@ -8,56 +8,13 @@ import java.util.*;
 
 public class LeetCodeNotepad {
 
+    int[] bit = new int[33];
+
     @Test
     public void test() {
-        TreeNode root = new TreeNode(
-                1,
-                new TreeNode(
-                        2,
-                        new TreeNode(2),
-                        null),
-                new TreeNode(
-                        3,
-                        new TreeNode(2),
-                        new TreeNode(4))
-        );
-
-        root = removeLeafNodes(root, 2);
+        int x = 93, y = 73;
 
         System.out.println("J Tag");
-    }
-
-    public TreeNode removeLeafNodes(TreeNode root, int target) {
-        if (root == null) return null;
-
-        if (root.left == null && root.right == null) {
-            if (root.val == target) {
-                return null;
-            } else {
-                return root;
-            }
-        }
-
-        root.left = removeLeafNodes(root.left, target);
-        root.right = removeLeafNodes(root.right, target);
-
-        if (root.left == null && root.right == null) {
-            if (root.val == target) {
-                return null;
-            }
-        }
-
-        return root;
-    }
-
-    private TreeNode removeHelper(TreeNode root, int target) {
-        if (root.left == null && root.right == null) {
-            if (root.val == target) {
-                return null;
-            }
-        }
-
-        return root;
     }
 
     class CustomStack {
