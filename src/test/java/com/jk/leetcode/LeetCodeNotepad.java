@@ -10,25 +10,20 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        int[] arr = new int[] {
-                2, 1, 5
-        };
+        int[] arr = new int[] {0, 0, 0, 0};
 
-        int[] asc = arr.clone();
-        Arrays.sort(asc);
-        int ascResult = 0, descResult = 0;
+        Arrays.sort(arr);
+        boolean flag = true;
+        int diff = Math.abs(arr[0] - arr[1]), before = arr[0];
 
-        for (int i = 0; i < asc.length; i++) {
-            if (asc[i] == arr[i]) {
-                ascResult++;
-            }
-
-            if (asc[asc.length-1-i] == arr[i]) {
-                descResult++;
+        for (int i = 1; i < arr.length; i++) {
+            if (diff != Math.abs(arr[i] - before)) {
+                flag = false;
+                break;
+            } else {
+                before = arr[i];
             }
         }
-
-//        return !(ascResult == arr.length || descResult == arr.length);
     }
 
     class CustomStack {
