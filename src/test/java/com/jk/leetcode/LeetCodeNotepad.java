@@ -10,18 +10,24 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        StaticClass staticClass1 = new StaticClass();
-        StaticClass staticClass2 = new StaticClass();
-        System.out.println("J Tag");
-    }
+        String S = "IDID";
+        int i = 0, d = S.length();
+        char[] sc = S.toCharArray(); // 이렇게 선언하는 것이 for문에 .length 나 S.charAt 을 쓰는 것보다 100배 가량 빨라진다.
+        int[] results = new int[S.length()+1];
 
-    static class StaticClass {
-        private static int count;
-
-        public StaticClass() {
-            count ++;
-            System.out.println("좋아요 갯수 : " + count);
+        for (int idx = 0; idx < sc.length; idx++) {
+            if ('I' == sc[idx]) {
+                results[idx] = i;
+                i++;
+            } else {
+                results[idx] = d;
+                d--;
+            }
         }
+
+        results[S.length()] = i;
+
+        System.out.println("J Tag");
     }
 
     class CustomStack {
