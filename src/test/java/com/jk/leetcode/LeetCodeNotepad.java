@@ -10,24 +10,25 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        String S = "IDID";
-        int i = 0, d = S.length();
-        char[] sc = S.toCharArray(); // 이렇게 선언하는 것이 for문에 .length 나 S.charAt 을 쓰는 것보다 100배 가량 빨라진다.
-        int[] results = new int[S.length()+1];
+        int[] arr = new int[] {
+                2, 1, 5
+        };
 
-        for (int idx = 0; idx < sc.length; idx++) {
-            if ('I' == sc[idx]) {
-                results[idx] = i;
-                i++;
-            } else {
-                results[idx] = d;
-                d--;
+        int[] asc = arr.clone();
+        Arrays.sort(asc);
+        int ascResult = 0, descResult = 0;
+
+        for (int i = 0; i < asc.length; i++) {
+            if (asc[i] == arr[i]) {
+                ascResult++;
+            }
+
+            if (asc[asc.length-1-i] == arr[i]) {
+                descResult++;
             }
         }
 
-        results[S.length()] = i;
-
-        System.out.println("J Tag");
+//        return !(ascResult == arr.length || descResult == arr.length);
     }
 
     class CustomStack {
