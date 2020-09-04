@@ -12,45 +12,33 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        TreeNode root = new TreeNode(
-                1,
-                new TreeNode(7, new TreeNode(7), new TreeNode(-8)),
-                new TreeNode(0)
-        );
-
         System.out.println("J Tag");
     }
 
-    public int maxLevelSum(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
-
-        int level = 0, maxLevel = 0, maxValue = Integer.MIN_VALUE;
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            level++;
-            int currentValue = 0, currentSize = queue.size();
-
-            for (int i = 0; i < currentSize; i++) {
-                TreeNode temp = queue.poll();
-                currentValue += temp.val;
-
-                if (temp.left != null) {
-                    queue.add(temp.left);
-                }
-
-                if (temp.right != null) {
-                    queue.add(temp.right);
-                }
-            }
-
-            if (currentValue > maxValue) {
-                maxValue = currentValue;
-                maxLevel = level;
-            }
+    public List<Integer> postorder(Node root) {
+        for (Node element : root.children) {
+            postorder(element);
         }
 
-        return maxLevel;
+        results.add(root.val);
+
+        return results;
+    }
+
+    class Node {
+        public int val;
+        public List<Node> children;
+
+        public Node() {}
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, List<Node> _children) {
+            val = _val;
+            children = _children;
+        }
     }
 
     class CustomStack {
