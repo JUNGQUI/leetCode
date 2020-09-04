@@ -10,17 +10,29 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        int[] nums = new int[] {
-                1, 2, 3, 4
-        };
-        int pairs = nums.length/2, result = 0;
-        Arrays.sort(nums);
+        List<Integer> results = pathInZigZagTree(26);
+        System.out.println("J Tag");
+    }
 
-        for (int i = nums.length-2; i > -1; i-=2) {
-            result += nums[i];
+    public List<Integer> pathInZigZagTree(int label) {
+        int floor = (int) (Math.log(label)/Math.log(2));
+        int currentValue = label;
+        List<Integer> results = new ArrayList<>();
+        results.add(label);
+
+        // 짝수가 역, 홀수가 정
+        for (int i = floor; i > 0; i--) {
+            int max = (int) Math.pow(2, i+1) - 1, min = (int) Math.pow(2, i);
+            int sumOfFloor = max + min;
+            int real = (sumOfFloor - currentValue)%2 == 0 ? sumOfFloor - currentValue : sumOfFloor - currentValue - 1;
+
+            currentValue = real/2;
+            results.add(currentValue);
         }
 
-        System.out.println("J Tag");
+        results.sort(Comparator.naturalOrder());
+
+        return results;
     }
 
     class Node {

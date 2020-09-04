@@ -30,4 +30,16 @@ ex) 17, 18, 4, 5, 6, 1, 1 일 경우,
 
 18 6 6 1 1 -1 이와 같은 형태가 된다.
 
+- path in zigzag labelled binary tree
+full binary tree 가 주어진다. root 가 1층인 것을 기준으로 홀수는 정배열, 짝수는 역배열 순서로 이루어져 있다면, int label 이 주어졌을 때 label 까지 가는 path 를 return 하라.
+
+ex) label 14
+
+                    1
+            3                2
+        4       5        6       7
+      15 14   13 12    11 10    9  8
+...
+
+1 - 3 - 4 - 14 가 반환되어야 한다.
  */
