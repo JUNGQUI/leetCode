@@ -10,6 +10,16 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
+        int[] nums = new int[] {
+                1, 2, 3, 4
+        };
+        int pairs = nums.length/2, result = 0;
+        Arrays.sort(nums);
+
+        for (int i = nums.length-2; i > -1; i-=2) {
+            result += nums[i];
+        }
+
         System.out.println("J Tag");
     }
 
