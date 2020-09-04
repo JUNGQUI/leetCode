@@ -8,21 +8,9 @@ import java.util.*;
 
 public class LeetCodeNotepad {
 
-    List<Integer> results = new ArrayList<>();
-
     @Test
     public void test() {
         System.out.println("J Tag");
-    }
-
-    public List<Integer> postorder(Node root) {
-        for (Node element : root.children) {
-            postorder(element);
-        }
-
-        results.add(root.val);
-
-        return results;
     }
 
     class Node {
