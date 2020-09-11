@@ -10,27 +10,24 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        int [][] mat = new int[][] {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
+        int n = 3;
 
-        int result = diagonalSum(mat);
+        int result = minOperations(n);
 
         System.out.println("J Tag");
     }
 
-    public int diagonalSum(int[][] mat) {
-        int length = mat.length, result = 0;
+    public int minOperations(int n) {
+        int result = 0, minValue = 0;
 
-        for (int i = 0; i < length; i++) {
-            result += mat[i][i];
-            result += mat[i][length-1-i];
+        for (int i = 0; i < n; i++) {
+            minValue += 2*i + 1;
+        }
 
-            if (length%2 != 0 && i == length/2) {
-                result -= mat[i][length-1-i];
-            }
+        minValue = minValue/n;
+
+        for (int i = 0; i < n/2; i++) {
+            result += minValue - (2*i + 1);
         }
 
         return result;
