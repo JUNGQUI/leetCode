@@ -10,15 +10,30 @@ public class LeetCodeNotepad {
 
     @Test
     public void test() {
-        int[] piles = new int[] {9,8,7,6,5,1,2,3,4};
-        Arrays.sort(piles);
-        int pilesLength = piles.length/3, result = 0;
+        int [][] mat = new int[][] {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
 
-        for (int i = piles.length-2; i >= pilesLength; i-=2) {
-            result += piles[i];
-        }
+        int result = diagonalSum(mat);
 
         System.out.println("J Tag");
+    }
+
+    public int diagonalSum(int[][] mat) {
+        int length = mat.length, result = 0;
+
+        for (int i = 0; i < length; i++) {
+            result += mat[i][i];
+            result += mat[i][length-1-i];
+
+            if (length%2 != 0 && i == length/2) {
+                result -= mat[i][length-1-i];
+            }
+        }
+
+        return result;
     }
 
     class Node {
